@@ -78,4 +78,4 @@ How JS modifies HTML and CSS in real-time.
 
 This project is open-source and maintained by [Your Name/School Name].
 
-It is distributed under the MIT License. You are free to fork, modify, and use this content for educational purposes. Please retain the original license notice.
+It is distributed under the MIT License. You are free to fork, modify, and use this content for educational purposes. Please retain the original license notice.# ICT-WebDev-Fundamentals
