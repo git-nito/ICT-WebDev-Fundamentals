@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ICT Code Lessons - HTML, CSS, JS Fundamentals</title>
+    <!-- Load Tailwind CSS CDN for modern styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom styles for professional code presentation */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #1a1a2e; /* Deep blue/purple dark mode background */
+        }
+        
+        /* Ensures the sidebar is fixed and scrolls independently on desktop */
+        @media (min-width: 768px) {
+            #sidebar {
+                height: 100vh;
+                position: fixed;
+                top: 0;
+                left: 0;
+                overflow-y: auto;
+            }
+        }
+        
+        /* Custom styling for code blocks to simulate syntax highlighting */
+        .code-block {
+            background-color: #2e2e4a; /* Slightly lighter background for the code area */
+            border-radius: 0.5rem;
+            padding: 1rem;
+            overflow-x: auto;
+            font-family: 'Menlo', 'Monaco', 'Consolas', monospace;
+            font-size: 0.875rem;
+            color: #e0e0e0;
+            line-height: 1.4;
+        }
+
+        /* Simulated syntax highlighting colors */
+        .code-block .tag { color: #66d9ef; }    /* Light Blue */
+        .code-block .attr { color: #a6e22e; }   /* Light Green */
+        .code-block .val { color: #e6db74; }    /* Yellow */
+        .code-block .prop { color: #f92672; }   /* Pink/Red */
+        .code-block .comm { color: #75715e; }   /* Grey/Comment */
+        .code-block .key { color: #ae81ff; }    /* Purple */
+        .code-block .unit { color: #fd971f; }   /* Orange */
+        .code-block .selector { color: #e6db74; } /* Yellow */
+
+        /* Active navigation link style */
+        .nav-link.active {
+            background-color: #4a4a75;
+            color: #ffffff;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Main Application Container -->
+    <div id="app" class="md:flex">
+
+        <!-- Sidebar: Course Index and Navigation -->
+        <!-- Responsive change: Hidden by default on mobile, always visible on desktop (md:block) -->
+        <aside id="sidebar" class="bg-gray-900 text-white md:w-64 w-full p-4 shadow-xl z-20 hidden md:block">
+            <h1 class="text-3xl font-extrabold text-indigo-400 mb-6 border-b border-indigo-700 pb-2">
+                ICT WebDev Fundamentals
+            </h1>
+
+            <nav class="space-y-4">
+                
+                <!-- HTML Module -->
+                <div>
+                    <h2 class="text-lg font-semibold text-indigo-300 uppercase tracking-wider mb-2">HTML Fundamentals</h2>
+                    <ul class="space-y-1 ml-2">
+                        <li>
+                            <button id="nav-html-1" class="nav-link w-full text-left p-2 rounded-lg transition duration-150 hover:bg-gray-700" onclick="showLesson('html-1', this.id)">
+                                1. Semantic Tags
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- CSS Module -->
+                <div>
+                    <h2 class="text-lg font-semibold text-indigo-300 uppercase tracking-wider mb-2 pt-4 border-t border-indigo-700">CSS Layout & Style</h2>
+                    <ul class="space-y-1 ml-2">
+                        <li>
+                            <button id="nav-css-1" class="nav-link w-full text-left p-2 rounded-lg transition duration-150 hover:bg-gray-700" onclick="showLesson('css-1', this.id)">
+                                1. The Box Model
+                            </button>
+                        </li>
+                        <li>
+                            <button id="nav-css-2" class="nav-link w-full text-left p-2 rounded-lg transition duration-150 hover:bg-gray-700" onclick="showLesson('css-2', this.id)">
+                                2. Introduction to Flexbox
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- JavaScript Module -->
+                <div>
+                    <h2 class="text-lg font-semibold text-indigo-300 uppercase tracking-wider mb-2 pt-4 border-t border-indigo-700">JavaScript Interactivity</h2>
+                    <ul class="space-y-1 ml-2">
+                        <li>
+                            <!-- Placeholder for JS Lesson -->
+                            <button id="nav-js-1" class="nav-link w-full text-left p-2 rounded-lg transition duration-150 hover:bg-gray-700 text-gray-400 cursor-not-allowed" disabled>
+                                1. DOM Manipulation (Coming Soon)
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main Content Area -->
+        <!-- Responsive Change: Added pt-20 on mobile to clear the fixed menu button -->
+        <main class="md:ml-64 flex-grow p-6 md:p-10 pt-20 md:pt-10 text-gray-100">
+            
+            <!-- Mobile Menu Toggle Button (Visible only on small screens) -->
+            <button onclick="toggleSidebar()" class="md:hidden fixed top-4 left-4 z-30 bg-indigo-600 hover:bg-indigo-700 text-white p-3 rounded-full shadow-lg transition duration-200">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+
+
+            <!-- Default Welcome Screen -->
+            <section id="welcome" class="lesson-content">
+                <div class="bg-gray-800 p-8 rounded-xl shadow-2xl">
+                    <h2 class="text-4xl font-bold text-indigo-400 mb-4">Welcome to Web Development</h2>
+                    <p class="text-lg mb-6 text-gray-300">
+                        This platform is designed to teach you the three fundamental pillars of the internet. Every lesson focuses on clean, modern, and professional coding standards.
+                    </p>
+                    <div class="grid md:grid-cols-3 gap-6 text-center">
+                        <div class="bg-indigo-900/50 p-4 rounded-lg">
+                            <h3 class="font-bold text-xl text-indigo-300">HTML</h3>
+                            <p class="text-sm text-gray-400">The Structure (The Skeleton)</p>
+                        </div>
+                        <div class="bg-indigo-900/50 p-4 rounded-lg">
+                            <h3 class="font-bold text-xl text-indigo-300">CSS</h3>
+                            <p class="text-sm text-gray-400">The Style (The Skin)</p>
+                        </div>
+                        <div class="bg-indigo-900/50 p-4 rounded-lg">
+                            <h3 class="font-bold text-xl text-indigo-300">JavaScript</h3>
+                            <p class="text-sm text-gray-400">The Behavior (The Muscle)</p>
+                        </div>
+                    </div>
+                    <p class="mt-8 text-indigo-300 font-medium">
+                        Click on "1. Semantic Tags" in the menu to begin your first lesson!
+                    </p>
+                </div>
+            </section>
+
+            <!-- ---------------------------------------------------- -->
+            <!-- LESSON CONTENT 1: HTML Semantic Tags -->
+            <!-- ---------------------------------------------------- -->
+            <section id="html-1" class="lesson-content hidden bg-gray-800 p-8 rounded-xl shadow-2xl">
+                <h2 class="text-4xl font-bold text-indigo-400 mb-4">HTML Lesson 1: The Power of Semantic Tags</h2>
+                <p class="text-lg text-gray-300 mb-6">
+                    **Semantic** means **"relating to meaning in language or logic."** In HTML, semantic elements tell the browser, developer, and search engines *what* the content is, not just *how* it should look.
+                </p>
+
+                <h3 class="text-2xl font-semibold text-indigo-300 mt-6 mb-3">Why Use Semantic Tags?</h3>
+                <ul class="list-disc list-inside space-y-2 ml-4 text-gray-300">
+                    <li>**Accessibility (A11y):** Screen readers rely on tags like <code class="bg-gray-700 p-1 rounded text-yellow-300">&lt;nav&gt;</code> to guide users.</li>
+                    <li>**SEO:** Search engines prioritize content wrapped in meaningful tags like <code class="bg-gray-700 p-1 rounded text-yellow-300">&lt;article&gt;</code>.</li>
+                    <li>**Readability:** Semantic code is clean and easy for team members to understand.</li>
+                </ul>
+
+                <h3 class="text-2xl font-semibold text-indigo-300 mt-6 mb-3">Code Example: Semantic vs. Non-Semantic</h3>
+                
+                <div class="code-block mt-4">
+                    <pre>
+<span class="comm"><!-- ❌ Non-Semantic (Bad) Structure --></span>
+<span class="tag">&lt;div</span> <span class="attr">id=</span><span class="val">"header"</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;div</span> <span class="attr">class=</span><span class="val">"nav-menu"</span><span class="tag">&gt;</span>...<span class="tag">&lt;/div&gt;</span>
+<span class="tag">&lt;/div&gt;</span>
+<span class="tag">&lt;div</span> <span class="attr">id=</span><span class="val">"content-main"</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;h1&gt;</span>Post Title<span class="tag">&lt;/h1&gt;</span>
+<span class="tag">&lt;/div&gt;</span>
+<span class="tag">&lt;div</span> <span class="attr">id=</span><span class="val">"footer"</span><span class="tag">&gt;</span>Copyright<span class="tag">&lt;/div&gt;</span>
+
+<span class="comm"><!-- ✅ Semantic (Good) Structure --></span>
+<span class="tag">&lt;header&gt;</span>
+    <span class="tag">&lt;h1&gt;</span>My Site<span class="tag">&lt;/h1&gt;</span>
+    <span class="tag">&lt;nav&gt;</span>...<span class="tag">&lt;/nav&gt;</span>
+<span class="tag">&lt;/header&gt;</span>
+
+<span class="tag">&lt;main&gt;</span>
+    <span class="tag">&lt;article&gt;</span>
+        <span class="tag">&lt;h2&gt;</span>Semantic HTML<span class="tag">&lt;/h2&gt;</span>
+        <span class="tag">&lt;p&gt;</span>Article content.<span class="tag">&lt;/p&gt;</span>
+    <span class="tag">&lt;/article&gt;</span>
+<span class="tag">&lt;/main&gt;</span>
+
+<span class="tag">&lt;footer&gt;</span>
+    <span class="tag">&lt;p&gt;</span>&amp;copy; 2025<span class="tag">&lt;/p&gt;</span>
+<span class="tag">&lt;/footer&gt;</span>
+                    </pre>
+                </div>
+
+                <h3 class="text-2xl font-semibold text-indigo-300 mt-8 mb-3">Your Challenge! 🚀</h3>
+                <p class="text-gray-300">
+                    Open a live code editor (like <a href="https://codepen.io/" target="_blank" class="text-indigo-400 hover:text-indigo-300 underline">CodePen</a>). Build a page for a fictional blog, using only these semantic tags for the main structure: <code class="bg-gray-700 p-1 rounded text-yellow-300">&lt;header&gt;</code>, <code class="bg-gray-700 p-1 rounded text-yellow-300">&lt;nav&gt;</code>, <code class="bg-gray-700 p-1 rounded text-yellow-300">&lt;main&gt;</code>, and <code class="bg-gray-700 p-1 rounded text-yellow-300">&lt;footer&gt;</code>.
+                </p>
+            </section>
+
+            <!-- ---------------------------------------------------- -->
+            <!-- LESSON CONTENT 2: CSS Box Model -->
+            <!-- ---------------------------------------------------- -->
+            <section id="css-1" class="lesson-content hidden bg-gray-800 p-8 rounded-xl shadow-2xl">
+                <h2 class="text-4xl font-bold text-indigo-400 mb-4">CSS Lesson 1: Mastering The Box Model</h2>
+                <p class="text-lg text-gray-300 mb-6">
+                    Every HTML element is a **rectangular box**. The Box Model is the rulebook that defines how these boxes interact with one another by controlling their size and space.
+                </p>
+                <p class="mb-4 font-medium text-indigo-300">The Box Model has four nested layers, from the inside out:</p>
+                
+                <ol class="list-decimal list-inside space-y-2 ml-4 text-gray-300">
+                    <li>**Content:** The actual data (text, image). Controlled by `width`/`height`.</li>
+                    <li>**Padding:** **Internal space** between the content and the border. Takes the element's background color.</li>
+                    <li>**Border:** The line wrapped around the padding.</li>
+                    <li>**Margin:** **External space** outside the border. Creates space between elements. Always transparent.</li>
+                </ol>
+
+                <h3 class="text-2xl font-semibold text-indigo-300 mt-6 mb-3">Code Example: Box Properties</h3>
+
+                <div class="code-block mt-4">
+                    <pre>
+<span class="comm"><!-- HTML Example --></span>
+<span class="tag">&lt;div</span> <span class="attr">class=</span><span class="val">"box"</span><span class="tag">&gt;</span>This is the Content Area.<span class="tag">&lt;/div&gt;</span>
+
+<span class="comm"><!-- CSS Styling --></span>
+<span class="selector">.box</span> {
+    <span class="comm">/* 1. Content */</span>
+    <span class="prop">width:</span> <span class="unit">300px</span>; 
+    <span class="prop">height:</span> <span class="unit">100px</span>;
+    <span class="prop">background-color:</span> <span class="val">#4a4a75</span>;
+
+    <span class="comm">/* 2. Padding (Internal) */</span>
+    <span class="prop">padding:</span> <span class="unit">20px</span>; 
+
+    <span class="comm">/* 3. Border */</span>
+    <span class="prop">border:</span> <span class="unit">5px</span> <span class="val">solid</span> <span class="key">red</span>;
+
+    <span class="comm">/* 4. Margin (External) */</span>
+    <span class="prop">margin:</span> <span class="unit">40px</span> <span class="key">auto</span>; <span class="comm">/* Centers horizontally and adds vertical space */</span>
+
+    <span class="comm">/* Total rendered width will be 350px (300 + 20 + 20 + 5 + 5) without border-box! */</span>
+}
+                    </pre>
+                </div>
+                
+
+                <h3 class="text-2xl font-semibold text-indigo-300 mt-8 mb-3">Pro Standard: <code class="bg-gray-700 p-1 rounded text-yellow-300">box-sizing: border-box</code></h3>
+                <p class="text-gray-300 mb-4">
+                    By default, adding padding/border increases the total size of the element (Content-Box Model). The professional standard is to use the **Border-Box Model**, which includes padding and border *inside* the defined `width`/`height`.
+                </p>
+                
+                <div class="code-block">
+                    <pre>
+<span class="selector">*</span> {
+    <span class="prop">box-sizing:</span> <span class="key">border-box</span>; 
+    <span class="comm">/* USE THIS IN EVERY PROJECT! Padding and border are now calculated INWARD. */</span>
+}
+                    </pre>
+                </div>
+
+                <h3 class="text-2xl font-semibold text-indigo-300 mt-8 mb-3">Your Challenge! 🚀</h3>
+                <p class="text-gray-300">
+                    In your code editor, create two boxes side-by-side (using a wrapper `div`). Apply the universal <code class="bg-gray-700 p-1 rounded text-yellow-300">border-box</code> rule, then give both boxes a width of <code class="bg-gray-700 p-1 rounded text-yellow-300">50%</code>, a <code class="bg-gray-700 p-1 rounded text-yellow-300">10px</code> padding, and a <code class="bg-gray-700 p-1 rounded text-yellow-300">2px</code> border. See how they magically fit on the same line without breaking!
+                </p>
+            </section>
+
+            <!-- ---------------------------------------------------- -->
+            <!-- LESSON CONTENT 3: CSS Flexbox -->
+            <!-- ---------------------------------------------------- -->
+            <section id="css-2" class="lesson-content hidden bg-gray-800 p-8 rounded-xl shadow-2xl">
+                <h2 class="text-4xl font-bold text-indigo-400 mb-4">CSS Lesson 2: Introduction to Flexbox</h2>
+                <p class="text-lg text-gray-300 mb-6">
+                    **Flexbox** (Flexible Box Module) is the modern, powerful solution for **one-dimensional layout** (aligning items along a single line, either horizontally or vertically).
+                </p>
+
+                <h3 class="text-2xl font-semibold text-indigo-300 mt-6 mb-3">The Container/Item Model</h3>
+                <p class="text-gray-300 mb-4">
+                    Flexbox works by creating a relationship between a **parent element (the Container)** and its **direct children (the Items)**.
+                </p>
+                <ul class="list-disc list-inside space-y-2 ml-4 text-gray-300">
+                    <li>**Flex Container:** Set <code class="bg-gray-700 p-1 rounded text-yellow-300">display: flex;</code> on the parent.</li>
+                    <li>**Flex Items:** The children inside the container are automatically adjusted.</li>
+                </ul>
+
+                <h3 class="text-2xl font-semibold text-indigo-300 mt-6 mb-3">Code Example: Creating a Centered Menu</h3>
+
+                <div class="code-block mt-4">
+                    <pre>
+<span class="comm"><!-- HTML Setup: Container with 3 Items --></span>
+<span class="tag">&lt;nav</span> <span class="attr">class=</span><span class="val">"flex-container"</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;a&gt;</span>Home<span class="tag">&lt;/a&gt;</span>
+    <span class="tag">&lt;a&gt;</span>About<span class="tag">&lt;/a&gt;</span>
+    <span class="tag">&lt;a&gt;</span>Contact<span class="tag">&lt;/a&gt;</span>
+<span class="tag">&lt;/nav&gt;</span>
+
+<span class="comm"><!-- CSS: Only applied to the Parent! --></span>
+<span class="selector">.flex-container</span> {
+    <span class="prop">display:</span> <span class="key">flex</span>; <span class="comm">/* 1. ACTIVATES Flexbox (sets main axis to horizontal) */</span>
+    <span class="prop">height:</span> <span class="unit">100px</span>;
+    <span class="prop">background-color:</span> <span class="val">#3f3f5a</span>;
+    <span class="prop">border-radius:</span> <span class="unit">0.5rem</span>;
+
+    <span class="comm">/* 2. Horizontal Positioning (Main Axis) */</span>
+    <span class="prop">justify-content:</span> <span class="key">center</span>; 
+
+    <span class="comm">/* 3. Vertical Positioning (Cross Axis) */</span>
+    <span class="prop">align-items:</span> <span class="key">center</span>; 
+    
+    <span class="comm">/* The items (the &lt;a&gt; tags) are now perfectly centered both ways! */</span>
+}
+                    </pre>
+                </div>
+                
+
+                <h3 class="text-2xl font-semibold text-indigo-300 mt-8 mb-3">Your Challenge! 🚀</h3>
+                <p class="text-gray-300 mb-4">
+                    Use your live editor and the code above. Change the following property:
+                </p>
+                <div class="code-block">
+                    <pre>
+<span class="prop">justify-content:</span> <span class="key">space-between</span>;
+<span class="prop">flex-direction:</span> <span class="key">column</span>;
+                    </pre>
+                </div>
+                <p class="text-gray-300 mt-4">
+                    **Question:** What happens when you change the `flex-direction`? How does `justify-content` change its behavior? (Hint: The main axis shifts from horizontal to vertical!)
+                </p>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        // JavaScript for handling lesson display and navigation state
+        
+        // State variable to track the currently visible lesson
+        let currentLessonId = 'welcome';
+
+        /**
+         * Toggles the visibility of the sidebar on mobile screens.
+         */
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            if (sidebar) {
+                sidebar.classList.toggle('hidden');
+            }
+        }
+
+        /**
+         * Hides all lesson sections and shows the requested one.
+         * @param {string} lessonId - The ID of the lesson section to display.
+         * @param {string} navId - The ID of the navigation button that was clicked.
+         */
+        function showLesson(lessonId, navId) {
+            // 1. Hide all lesson content
+            document.querySelectorAll('.lesson-content').forEach(section => {
+                section.classList.add('hidden');
+            });
+
+            // 2. Show the requested lesson
+            const target = document.getElementById(lessonId);
+            if (target) {
+                target.classList.remove('hidden');
+                currentLessonId = lessonId;
+            }
+
+            // 3. Update active navigation state
+            document.querySelectorAll('.nav-link').forEach(button => {
+                button.classList.remove('active');
+            });
+
+            const activeNav = document.getElementById(navId);
+            if (activeNav) {
+                activeNav.classList.add('active');
+            }
+
+            // 4. On mobile, hide the sidebar after a selection is made
+            if (window.innerWidth < 768) {
+                toggleSidebar();
+            }
+        }
+
+        // Set the initial active state when the page loads
+        document.addEventListener('DOMContentLoaded', () => {
+             // Default to showing the welcome screen and activating the first lesson's nav link
+             showLesson('html-1', 'nav-html-1');
+        });
+    </script>
+</body>
+</html>
